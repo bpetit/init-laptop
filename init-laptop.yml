@@ -1,0 +1,35 @@
+- hosts: localhost
+  tasks:
+    - name: get vimrc
+      get_url: url={{ initlaptop_vimrc_url }} dest={{ item }}
+      with_items:
+        - "/home/{{ initlaptop_user }}/.vimrc"
+        - "/root/.vimrc"
+    - name: set vimrc ownership and permissions
+      file: path=/home/{{ initlaptop_user }}/.vimrc owner={{ initlaptop_user }} group={{ initlaptop_user }} mode=0640
+    - name: install useful packages
+      package: name={{ item }} state=present
+      with_items:
+        - nmap
+        - htop
+        - ncdu
+        - terminator
+        - owncloud-client
+        - ferm
+        - tcpdump
+        - wireshark
+        - nload
+        - mtr-tiny
+        - keepassx
+        - docker.io
+        - docker-compose
+        - pidgin
+        - pidgin-otr
+    - name: ensure known hosts are not hashed
+      lineinfile:
+        dest: /etc/ssh/ssh_config
+        regexp: "^    HashKnownHosts yes"
+        line: "    HashKnownHosts no"
+        backrefs: yes
+    - name: insert autocompletion config in bashrc
+      copy: src=files/etc/bash_completion.d/known-hosts dest=/etc/bash_completion.d/known-hosts owner=root group=root mode=0644
