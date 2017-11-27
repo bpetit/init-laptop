@@ -26,6 +26,7 @@
         - pidgin
         - pidgin-otr
         - powertop
+        - sshpass
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
