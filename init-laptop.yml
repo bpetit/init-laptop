@@ -29,6 +29,7 @@
         - sshpass
         - curl
         - vlc-bin
+        - vlc
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
