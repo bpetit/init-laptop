@@ -30,6 +30,7 @@
         - curl
         - vlc-bin
         - vlc
+        - tig
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
