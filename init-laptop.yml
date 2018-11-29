@@ -31,6 +31,7 @@
         - vlc-bin
         - vlc
         - tig
+	- vim
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
