@@ -1,4 +1,8 @@
 - hosts: localhost
+  vars:
+    temporary_files_path: /home/{{ initlaptop_user }}/git/init-laptop/
+    slack_bin_url: https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.3-amd64.deb
+    initlaptop_user: bpetit
   tasks:
     - name: get vimrc
       get_url: url={{ initlaptop_vimrc_url }} dest={{ item }}
@@ -31,7 +35,14 @@
         - vlc-bin
         - vlc
         - tig
-	- vim
+        - vim
+    - name: install slack
+      get_url:
+        url: "{{ slack_bin_url }}"
+        dest: "{{ temporary_files_path }}/slack.deb"
+    - name: install slack
+      apt:
+        deb: "{{ temporary_files_path }}/slack.deb"
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
