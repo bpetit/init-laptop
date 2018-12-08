@@ -1,18 +1,19 @@
 - hosts: localhost
+  connection: local
   vars:
-    temporary_files_path: /home/{{ initlaptop_user }}/git/init-laptop/
-    slack_bin_url: https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.3-amd64.deb
-    initlaptop_user: bpetit
+    initlaptop_temporary_files_path: "/home/{{ ansible_user_id }}/git/init-laptop/"
+    initlaptop_slack_bin_url: "https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.3-amd64.deb"
+    initlaptop_vim_path: "/home/{{ ansible_user_id }}/.vim"
+    initlaptop_vim_plug_path: "{{ initlaptop_vim_path }}/autoload"
+    initlaptop_vim_plug_url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   tasks:
-    - name: get vimrc
-      get_url: url={{ initlaptop_vimrc_url }} dest={{ item }}
-      with_items:
-        - "/home/{{ initlaptop_user }}/.vimrc"
-        - "/root/.vimrc"
-    - name: set vimrc ownership and permissions
-      file: path=/home/{{ initlaptop_user }}/.vimrc owner={{ initlaptop_user }} group={{ initlaptop_user }} mode=0640
+    - name: configure vim
+      include_tasks: vim.yml
     - name: install useful packages
-      package: name={{ item }} state=present
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
       with_items:
         - nmap
         - htop
@@ -36,13 +37,14 @@
         - vlc
         - tig
         - vim
-    - name: install slack
+        - oathtool
+    - name: download slack
       get_url:
-        url: "{{ slack_bin_url }}"
-        dest: "{{ temporary_files_path }}/slack.deb"
+        url: "{{ initlaptop_slack_bin_url }}"
+        dest: "{{ initlaptop_temporary_files_path }}/slack.deb"
     - name: install slack
       apt:
-        deb: "{{ temporary_files_path }}/slack.deb"
+        deb: "{{ initlaptop_temporary_files_path }}/slack.deb"
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
@@ -50,4 +52,9 @@
         line: "    HashKnownHosts no"
         backrefs: yes
     - name: insert autocompletion config in bashrc
-      copy: src=files/etc/bash_completion.d/known-hosts dest=/etc/bash_completion.d/known-hosts owner=root group=root mode=0644
+      copy:
+        src: "files/etc/bash_completion.d/known-hosts"
+        dest: "/etc/bash_completion.d/known-hosts"
+        owner: "root"
+        group: "root"
+        mode: "0644"

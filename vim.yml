@@ -1,0 +1,20 @@
+- name: get vimrc
+  copy:
+    src: "files/home/vimrc"
+    dest: "{{ item }}"
+  with_items:
+    - "/home/{{ ansible_user_id }}/.vimrc"
+- name: set vimrc ownership and permissions
+  file:
+    path: "/home/{{ ansible_user_id }}/.vimrc"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: "0640"
+- name: ensure vim autoload folder exists
+  file:
+    path: "{{ initlaptop_vim_plug_path }}"
+    state: directory
+- name: download vim plug
+  get_url:
+    url: "{{ initlaptop_vim_plug_url }}"
+    dest: "{{ initlaptop_vim_plug_path }}"
