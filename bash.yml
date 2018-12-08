@@ -1,0 +1,23 @@
+- name: insert autocompletion config in bashrc
+  copy:
+    src: "files/etc/bash_completion.d/known-hosts"
+    dest: "/etc/bash_completion.d/known-hosts"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+- name: enable bashrc.d
+  lineinfile:
+    dest: "/home/{{ ansible_user_id }}/.bashrc"
+    line: "source /home/{{ ansible_user_id }}/.bashrc.d/*"
+- name: ensure bashrc.d exists
+  file:
+    path: "/home/{{ ansible_user_id }}/.bashrc.d"
+    state: directory
+- name: ensure mfa directory exists
+  file:
+    path: "/home/{{ ansible_user_id }}/.mfa"
+    state: directory
+- name: configure mfa
+  copy:
+    src: "files/mfa.sh"
+    dest: "/home/{{ ansible_user_id }}/.bashrc.d/mfa"

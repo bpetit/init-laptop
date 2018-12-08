@@ -38,6 +38,7 @@
         - tig
         - vim
         - oathtool
+        - redshift-gtk
     - name: download slack
       get_url:
         url: "{{ initlaptop_slack_bin_url }}"
@@ -51,10 +52,5 @@
         regexp: "^    HashKnownHosts yes"
         line: "    HashKnownHosts no"
         backrefs: yes
-    - name: insert autocompletion config in bashrc
-      copy:
-        src: "files/etc/bash_completion.d/known-hosts"
-        dest: "/etc/bash_completion.d/known-hosts"
-        owner: "root"
-        group: "root"
-        mode: "0644"
+    - name: build specific bash configuration 
+      include_tasks: bash.yml
