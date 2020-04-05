@@ -1,0 +1,10 @@
+function mutemic () {
+  if [ $(amixer -D pulse cget numid=2 | grep ": values" | cut -d '=' -f 2) == "on" ]
+  then
+    amixer -D pulse cset numid=2 off 2&1>> /var/log/i3controls.log;
+  else
+    amixer -D pulse cset numid=2 on 2&1>> /var/log/i3controls.log;
+  fi
+}
+
+export -f mutemic
