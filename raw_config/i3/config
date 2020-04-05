@@ -1,7 +1,6 @@
 # i3 config file (v4)
 #
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!  #
 # This config file uses keycodes (bindsym) and was written for the QWERTY
 # layout.
 #
@@ -143,13 +142,17 @@ exec synclient TouchpadOff=1
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
 bindsym XF86AudioMute exec amixer -D pulse sset Master 0%
+bindsym XF86AudioMicMute exec mutemic
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Print screen / screenshot with selection
-bindsym XF86ScreenSaver exec flameshot gui
+bindsym Print exec flameshot gui
+
+# Screen lock
+bindsym Mod1+Shift+b exec i3lock -c 000000
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -193,3 +196,5 @@ bar {
 # Please remove the following exec line:
 #######################################################################
 exec i3-config-wizard
+
+exec nextcloud
