@@ -1,0 +1,36 @@
+- name: install useful packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nmap
+    - htop
+    - ncdu
+    - terminator
+    - owncloud-client
+    - ferm
+    - tcpdump
+    - wireshark
+    - nload
+    - mtr-tiny
+    - keepassx
+    - docker.io
+    - docker-compose
+    - pidgin
+    - pidgin-otr
+    - powertop
+    - sshpass
+    - curl
+    - vlc-bin
+    - vlc
+    - tig
+    - vim
+    - oathtool
+    - redshift-gtk
+    - xbacklight
+    - flameshot
+    - bluez-tools
+    - qemu-kvm
+    - libvirt0
+    - libvirt-bin

@@ -10,42 +10,7 @@
     - name: configure vim
       include_tasks: vim.yml
     - name: install useful packages
-      become: true
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - nmap
-        - htop
-        - ncdu
-        - terminator
-        - owncloud-client
-        - ferm
-        - tcpdump
-        - wireshark
-        - nload
-        - mtr-tiny
-        - keepassx
-        - docker.io
-        - docker-compose
-        - pidgin
-        - pidgin-otr
-        - powertop
-        - sshpass
-        - curl
-        - vlc-bin
-        - vlc
-        - tig
-        - vim
-        - oathtool
-        - redshift-gtk
-    - name: download slack
-      get_url:
-        url: "{{ initlaptop_slack_bin_url }}"
-        dest: "{{ initlaptop_temporary_files_path }}/slack.deb"
-    - name: install slack
-      apt:
-        deb: "{{ initlaptop_temporary_files_path }}/slack.deb"
+      include_tasks: packages.yml
     - name: ensure known hosts are not hashed
       lineinfile:
         dest: /etc/ssh/ssh_config
