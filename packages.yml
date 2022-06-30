@@ -8,8 +8,6 @@
     - htop
     - ncdu
     - terminator
-    - owncloud-client
-    - ferm
     - tcpdump
     - wireshark
     - nload
@@ -17,8 +15,6 @@
     - keepassx
     - docker.io
     - docker-compose
-    - pidgin
-    - pidgin-otr
     - powertop
     - sshpass
     - curl
@@ -27,10 +23,6 @@
     - tig
     - vim
     - oathtool
-    - redshift-gtk
-    - xbacklight
     - flameshot
-    - bluez-tools
     - qemu-kvm
     - libvirt0
-    - libvirt-bin

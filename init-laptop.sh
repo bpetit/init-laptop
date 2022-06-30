@@ -3,8 +3,8 @@
 WHOAMI=$(whoami)
 
 sudo apt update
-sudo apt install git python-pip -y
-sudo pip install ansible
+sudo apt install git python3-pip -y
+sudo pip3 install ansible
 mkdir -p $HOME/git
 cd $HOME/git
 if [[ -d init-laptop ]]; then
@@ -14,6 +14,4 @@ else
 fi
 cp host_vars/localhost.yml.sample host_vars/localhost.yml
 sed -i "s/johndoe/${WHOAMI}/" host_vars/localhost.yml
-wget https://files.pythonhosted.org/packages/source/m/mitogen/mitogen-0.2.3.tar.gz
-tar xzvf mitogen-0.2.3.tar.gz
 ansible-playbook --ask-become-pass init-laptop.yml
