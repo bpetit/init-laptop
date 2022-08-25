@@ -22,3 +22,10 @@
   copy:
     src: "files/mfa.sh"
     dest: "/home/{{ ansible_user_id }}/.bashrc.d/mfa"
+- name: setup vim shortcuts in terminal
+  blockinfile:
+    block: |
+      set editing-mode vi
+      set keymap vi-command
+    create: true
+    path: "~/.inputrc"
