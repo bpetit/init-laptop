@@ -1,3 +1,13 @@
 # git aliases
 alias gcm="git commit -m"
 alias gpsh="git push"
+alias lla="ls -la"
+alias llt="ls -lt"
+alias python="python3"
+alias findfail="journalctl --no-pager --since today --grep 'fail|error|fatal' --output json|jq '._EXE' | sort | uniq -c | sort --numeric --reverse --key 1"
+alias watchmem="watch -n 5 -d '/bin/free -m'"
+alias listpartsize="lsblk --json | jq -c '.blockdevices[]|[.name,.size]'"
+alias weather="curl -s --connect-timeout 3 -m 5 http://wttr.in/Paris"
+alias topclientips="cat /var/log/nginx/access.log | cut -f 1 -d ' ' | sort | uniq -c | sort -hr | head -n 10"
+alias rfmt="cargo fmt && cargo clippy"
+alias webshare="python -m http.server 9000"
