@@ -22,6 +22,10 @@
   copy:
     src: "files/mfa.sh"
     dest: "/home/{{ ansible_user_id }}/.bashrc.d/mfa"
+- name: add aliases
+  copy:
+    src: "raw_config/bashrc.d/aliases"
+    dest: "/home/{{ ansible_user_id }}/.bashrc.d/aliases"
 - name: setup vim shortcuts in terminal
   blockinfile:
     block: |
