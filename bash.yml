@@ -5,6 +5,7 @@
     owner: "root"
     group: "root"
     mode: "0644"
+  become: true
 - name: enable bashrc.d
   lineinfile:
     dest: "/home/{{ ansible_user_id }}/.bashrc"

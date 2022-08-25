@@ -17,5 +17,6 @@
         regexp: "^    HashKnownHosts yes"
         line: "    HashKnownHosts no"
         backrefs: yes
+      become: true
     - name: build specific bash configuration 
       include_tasks: bash.yml
