@@ -26,3 +26,4 @@
     - flameshot
     - qemu-kvm
     - libvirt0
+    - gir1.2-poppler-0.18
