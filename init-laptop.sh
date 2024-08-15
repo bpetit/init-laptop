@@ -4,7 +4,7 @@ WHOAMI=$(whoami)
 
 sudo apt update
 sudo apt install git python3-pip -y
-sudo pip3 install ansible mat2
+sudo pip3 install ansible mat2 --break-system-packages
 mkdir -p $HOME/git
 cd $HOME/git
 if [[ -d init-laptop ]]; then
